@@ -1,0 +1,23 @@
+name: basket_app
+description: Basket app
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  equatable: ^1.2.3
+  dartz: ^0.9.1
+  http: ^0.12.2
+  data_connection_checker: ^0.3.4
+  shared_preferences: ^0.5.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mockito: ^4.1.1
+
+flutter:
+  uses-material-design: true
