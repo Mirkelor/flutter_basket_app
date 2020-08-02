@@ -50,7 +50,7 @@ void main() {
     final Map<String, int> testBasket3 = Map<String, int>();
     testBasket3['1'] = 3;
     final Map<String, int> testBasketFail = Map<String, int>();
-    testBasket3['3'] = 1;
+    testBasketFail['3'] = 1;
     test('should check if the device is online', () {
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
 

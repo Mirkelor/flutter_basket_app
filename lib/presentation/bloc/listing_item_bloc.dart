@@ -30,7 +30,9 @@ class ListingItemBloc extends Bloc<ListingItemEvent, ListingItemState> {
       yield* _mapLoadBasketEventToState();
     } else if (event is AddToBasketEvent) {
       await _mapAddToBasketEventToState(event);
-    } else if (event is OrderEvent) {}
+    } else if (event is OrderEvent) {
+      yield* _mapOrderEventToState(event);
+    }
   }
 
   Stream<ListingItemState> _mapLoadStoreEventToState() async* {
