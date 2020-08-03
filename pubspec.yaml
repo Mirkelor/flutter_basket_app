@@ -8,18 +8,32 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # Object equality util
   equatable: ^1.2.3
+  # Functional programming
   dartz: ^0.9.1
+  # Http requests
   http: ^0.12.2
+  # Internet checker
   data_connection_checker: ^0.3.4
+  # Shared preferences
   shared_preferences: ^0.5.8
+  # State management BLoC
   flutter_bloc: ^6.0.1
+  # Dependency injection
+  injectable: ^1.0.2
+  get_it: ^4.0.4
+  # Auto route generator
+  auto_route: ^0.6.7
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   mockito: ^4.1.1
   bloc_test: ^7.0.0
+  build_runner:
+  injectable_generator: ^1.0.3
+  auto_route_generator: ^0.6.7
 
 flutter:
   uses-material-design: true

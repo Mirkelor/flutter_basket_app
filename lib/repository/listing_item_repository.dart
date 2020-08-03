@@ -7,8 +7,10 @@ import 'package:basket_app/datasource/listing_item_remote_data_source.dart';
 import 'package:basket_app/domain/listing_item.dart';
 import 'package:basket_app/model/listing_item_model.dart';
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
+@lazySingleton
 class ListingItemRepository {
   final ListingItemRemoteDataSource remoteDataSource;
   final ListingItemLocalDataSource localDataSource;
@@ -68,5 +70,9 @@ class ListingItemRepository {
     } on ServerException catch (error) {
       return Left(ServerFailure(error.message));
     }
+  }
+
+  Future<void> clearKey(String key) async {
+    return localDataSource.clearKey(key);
   }
 }

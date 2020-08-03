@@ -5,8 +5,10 @@ import 'package:basket_app/core/exception.dart';
 import 'package:basket_app/domain/listing_item.dart';
 import 'package:basket_app/model/listing_item_model.dart';
 import 'package:http/http.dart';
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
+@lazySingleton
 class ListingItemRemoteDataSource {
   final Client client;
 

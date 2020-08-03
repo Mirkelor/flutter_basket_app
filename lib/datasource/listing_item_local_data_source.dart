@@ -4,9 +4,11 @@ import 'package:basket_app/core/constants.dart';
 import 'package:basket_app/core/exception.dart';
 import 'package:basket_app/domain/listing_item.dart';
 import 'package:basket_app/model/listing_item_model.dart';
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@lazySingleton
 class ListingItemLocalDataSource {
   SharedPreferences sharedPreferences;
 
@@ -22,8 +24,10 @@ class ListingItemLocalDataSource {
   }
 
   Future<void> addToBasket(ListingItemModel listingItemModel) async {
+    final jsonMap = json.decode(sharedPreferences.get(BASKET)) as Map;
+    print('${sharedPreferences.get(BASKET)}');
     final Map<String, int> jsonObject =
-        sharedPreferences.get(BASKET) ?? Map<String, int>();
+        jsonMap.cast<String, int>() ?? Map<String, int>();
     final String key = listingItemModel.id;
     if (jsonObject.containsKey(key)) {
       jsonObject.update(key, (value) => value + 1);
@@ -56,5 +60,9 @@ class ListingItemLocalDataSource {
     } else {
       return null;
     }
+  }
+
+  Future<void> clearKey(String key) async {
+    await sharedPreferences.remove(key);
   }
 }

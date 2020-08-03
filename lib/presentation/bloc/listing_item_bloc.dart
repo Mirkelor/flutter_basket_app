@@ -5,12 +5,14 @@ import 'package:basket_app/domain/listing_item.dart';
 import 'package:basket_app/repository/listing_item_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
 part 'listing_item_event.dart';
 
 part 'listing_item_state.dart';
 
+@injectable
 class ListingItemBloc extends Bloc<ListingItemEvent, ListingItemState> {
   final ListingItemRepository repository;
 
@@ -63,7 +65,10 @@ class ListingItemBloc extends Bloc<ListingItemEvent, ListingItemState> {
       final successOrFailMessage = await repository.order(event.basketMap);
       yield successOrFailMessage.fold(
         (failure) => Error(message: failure.message),
-        (success) => Empty(),
+        (success) {
+          repository.clearKey(BASKET);
+          return Empty();
+        },
       );
     }
   }

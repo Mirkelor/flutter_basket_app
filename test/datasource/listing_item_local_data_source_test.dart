@@ -55,7 +55,7 @@ void main() {
     });
     test('''should addToBasket when there is basket item with 2 qty then 
     item qty should be 3''', () async {
-      when(mockSharedPreferences.get(any)).thenReturn(testBasket2);
+      when(mockSharedPreferences.get(any)).thenReturn(json.encode(testBasket2));
 
       await dataSource.addToBasket(listingItemModel);
       final expectedJsonMap = json.encode(testBasket3);
@@ -65,7 +65,7 @@ void main() {
 
     test('''should addToBasket when there is no basket item then item qty 
     should be 1''', () async {
-      when(mockSharedPreferences.get(any)).thenReturn(null);
+      when(mockSharedPreferences.get(any)).thenReturn('{}');
 
       await dataSource.addToBasket(listingItemModel);
       final expectedJsonMap = json.encode(testBasket1);
