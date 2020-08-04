@@ -38,16 +38,17 @@ void main() {
     testBasket3['1'] = 3;
 
     test('should return basket when getBasket method called', () async {
-      when(mockSharedPreferences.get(any)).thenReturn(testBasket1);
+      when(mockSharedPreferences.get(any))
+          .thenAnswer((_) => json.encode(testBasket1));
 
       final response = await dataSource.getBasket();
 
-      verify(mockSharedPreferences.get(any));
+      verify(mockSharedPreferences.get(BASKET));
       expect(response, equals(testBasket1));
     });
 
     test('should throw CacheException when basket is empty', () async {
-      when(mockSharedPreferences.get(any)).thenReturn(null);
+      when(mockSharedPreferences.get(any)).thenAnswer((_) => null);
 
       final call = dataSource.getBasket;
 
@@ -65,7 +66,7 @@ void main() {
 
     test('''should addToBasket when there is no basket item then item qty 
     should be 1''', () async {
-      when(mockSharedPreferences.get(any)).thenReturn('{}');
+      when(mockSharedPreferences.get(any)).thenReturn(null);
 
       await dataSource.addToBasket(listingItemModel);
       final expectedJsonMap = json.encode(testBasket1);
@@ -97,7 +98,7 @@ void main() {
         in shared preferences''', () async {
       when(mockSharedPreferences.get(any)).thenReturn(listingItemList);
 
-      final result = await dataSource.getStoreItemById('1');
+      final result = dataSource.getStoreItemById('1');
 
       verify(mockSharedPreferences.get(STORE));
       expect(result, equals(listingItemModel.toDomain()));

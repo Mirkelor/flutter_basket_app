@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:basket_app/domain/listing_item.dart';
 import 'package:basket_app/injection.dart';
 import 'package:basket_app/presentation/bloc/listing_item_bloc.dart';
+import 'package:basket_app/presentation/routes/router.gr.dart';
 import 'package:basket_app/presentation/widgets/listing_item_grid_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +21,7 @@ class StorePage extends StatelessWidget {
             actions: <Widget>[
               IconButton(
                 icon: Icon(Icons.shopping_cart),
-                onPressed: () {},
+                onPressed: () => ExtendedNavigator.root.push(Routes.basketPage),
               ),
             ],
           ),

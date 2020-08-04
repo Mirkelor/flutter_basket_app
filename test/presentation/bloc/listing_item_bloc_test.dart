@@ -66,9 +66,10 @@ void main() {
       act: (ListingItemBloc bloc) async {
         when(mockRepository.getBasket())
             .thenAnswer((_) async => Right(testBasket1));
+        when(mockRepository.getStoreItemById(any)).thenReturn(listingItem);
         bloc.add(LoadBasketEvent());
       },
-      expect: [Loading(), BasketLoad(testBasket1)],
+      expect: [Loading(), BasketLoad(testBasket1, listingItemList)],
     );
 
     blocTest(
@@ -120,7 +121,7 @@ void main() {
       build: () => bloc,
       act: (ListingItemBloc bloc) async {
         when(mockRepository.getStoreItemById(any))
-            .thenAnswer((_) async => listingItemFail);
+            .thenReturn(listingItemFail);
         bloc.add(OrderEvent(testBasketFail));
       },
       expect: [Error(message: '$OUT_OF_STOCK_MESSAGE ${listingItemFail.name}')],

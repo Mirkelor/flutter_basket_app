@@ -59,7 +59,7 @@ class ListingItemRepository {
     return localDataSource.getStoreItemList();
   }
 
-  Future<ListingItem> getStoreItemById(String id) async {
+  ListingItem getStoreItemById(String id) {
     return localDataSource.getStoreItemById(id);
   }
 

@@ -21,12 +21,13 @@ class StoreLoad extends ListingItemState {
 }
 
 class BasketLoad extends ListingItemState {
+  final List<ListingItem> listingItemList;
   final Map<String, int> basketMap;
 
-  BasketLoad(this.basketMap);
+  BasketLoad(this.basketMap, this.listingItemList);
 
   @override
-  List<Object> get props => [basketMap];
+  List<Object> get props => [basketMap, listingItemList];
 }
 
 class Order extends ListingItemState {

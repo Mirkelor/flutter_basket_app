@@ -46,10 +46,11 @@ class ListingItemBloc extends Bloc<ListingItemEvent, ListingItemState> {
   }
 
   Stream<ListingItemState> _mapLoadBasketEventToState() async* {
-    final failureOrListingItemList = await repository.getBasket();
-    yield failureOrListingItemList.fold(
+    final failureOrBasketMap = await repository.getBasket();
+    yield failureOrBasketMap.fold(
       (failure) => Error(message: failure.message),
-      (basketMap) => BasketLoad(basketMap),
+      (basketMap) => BasketLoad(basketMap,
+          basketMap.keys.map((id) => repository.getStoreItemById(id)).toList()),
     );
   }
 
@@ -58,11 +59,16 @@ class ListingItemBloc extends Bloc<ListingItemEvent, ListingItemState> {
   }
 
   Stream<ListingItemState> _mapOrderEventToState(OrderEvent event) async* {
+    if(event.basketMap.isEmpty){
+      yield Empty();
+    }
     if (event.basketMap.containsKey('3')) {
-      final outOfStockItem = await repository.getStoreItemById('3');
+      final outOfStockItem = repository.getStoreItemById('3');
+      print('error');
       yield Error(message: '$OUT_OF_STOCK_MESSAGE ${outOfStockItem.name}');
     } else {
       final successOrFailMessage = await repository.order(event.basketMap);
+      print('biseyler');
       yield successOrFailMessage.fold(
         (failure) => Error(message: failure.message),
         (success) {
